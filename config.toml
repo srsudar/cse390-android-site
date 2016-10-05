@@ -1,3 +1,5 @@
 baseurl = "https://courses.cs.washington.edu/courses/cse390a1/16au/"
 languageCode = "en-us"
 title = "CSE 390 A1: Android Programming"
+theme = "hemingway"
+googleAnalytics = "UA-49752535-3"
