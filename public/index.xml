@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSE 390 A1: Android Programming</title>
+    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/</link>
+    <description>Recent content on CSE 390 A1: Android Programming</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Oct 2016 17:31:19 -0700</lastBuildDate>
+    <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 1</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</link>
+      <pubDate>Tue, 04 Oct 2016 17:31:19 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</guid>
+      <description>&lt;p&gt;Your homework for this week is to get your dev environment set up. Once it is
+running, create a new app like I demonstrated in the slides (Lecture 1, see
+previous post) and run it on either your device or an emulator.&lt;/p&gt;
+
+&lt;p&gt;After that, download and open this project in Android Studio:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/srsudar/mdr-original&#34;&gt;https://github.com/srsudar/mdr-original&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Run the tests and run the app on your device or emulator.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If you get stuck email me and I will help you!!!&lt;/strong&gt; There is nothing worse
+than being stuck on something like configuration or not being able to run code
+that other people can run. If any of this is confusing (i.e. how do I download
+and open a project?), email me and I will explain it better!&lt;/p&gt;
+
+&lt;p&gt;Right away with the &lt;code&gt;mdr-original&lt;/code&gt; project someone got an error saying that
+android-22 was not found on their machine. This means the SDK for Android
+version 22 is not installed, and many of you will likely see the same error.
+This is not an error with the app but with your build environment, and is one
+of the most common types of Android errors. Launch the SDK manager (as shown in
+the slides), and install version 22. It should then work (or at least that
+error should go away).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 1 Intro</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-1-intro/</link>
+      <pubDate>Tue, 04 Oct 2016 16:54:01 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-1-intro/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;Makeshift office hours this week on &lt;strong&gt;Wednesday, Oct 5, 1030-1130 in CSE
+678&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Someone asked me after class if you should be able to build your own Android
+App by the time the course is over. That should have been on my &amp;ldquo;goals of the
+course slide&amp;rdquo;, as heck yes it is a goal. In fact, after Homework 1 you&amp;rsquo;ll have
+already built your own app. It is crummy and boring, but built it you have. By
+the time the course is over, hopefully you&amp;rsquo;ll be able to build your own app
+that isn&amp;rsquo;t crummy or boring.&lt;/p&gt;
+
+&lt;p&gt;This is a weird course because it is about a specific technology. The only way
+you can really learn a technology is by using it. Writing code, running code,
+encountering bugs that are confusing and beyond your control, being alternately
+jubilant and miserable&amp;ndash;all these things are part of learning something like
+Android. Unfortunately, for a once a week credit/no-credit class, we don&amp;rsquo;t have
+a lab component and I don&amp;rsquo;t want to require a bunch of assignments, so I&amp;rsquo;m just
+going to be standing in front of you talking. &lt;strong&gt;But you will only really learn
+Android if you do the assignments and mess around with the code.&lt;/strong&gt; For that
+reason I suggest you spend as much time as you can on the assignments until you
+complete them.&lt;/p&gt;
+
+&lt;h1 id=&#34;office-hours&#34;&gt;Office Hours&lt;/h1&gt;
+
+&lt;p&gt;Please use &lt;a href=&#34;http://doodle.com/poll/2ap5tvbrekccm99n&#34;&gt;the Doodle poll&lt;/a&gt; to pick a
+time that works for you.&lt;/p&gt;
+
+&lt;p&gt;As we&amp;rsquo;re waiting for the final Doodle results to filter in, I&amp;rsquo;m going to have a
+temporary office hours this week before we settle on a regular time.&lt;/p&gt;
+
+&lt;p&gt;This week&amp;rsquo;s office hours is &lt;strong&gt;Oct 5, 1030-1130am in CSE 678&lt;/strong&gt;. This works
+for most people according to the poll. If it doesn&amp;rsquo;t work for you, vote in the
+Doodle!&lt;/p&gt;
+
+&lt;p&gt;Feel free to bring your machines to have me help install Android Studio from
+scratch or to have me help troubleshoot errors you&amp;rsquo;ve encountered doing
+Homework 1. If you want to come and start Homework 1 with me sitting there,
+just in case you encounter an error, that is fine by me too.&lt;/p&gt;
+
+&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
+
+&lt;p&gt;Here are the lecture slides from this week.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1G6xdqkHpiOpb3667t3-fK9b_tRFS7z644RYGjYMDhE0/edit?usp=sharing&#34;&gt;Lecture 0:
+Administrivia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1cTJ2wW5DHLl262TRqjKKlSLEsgW3gQECrQVF9gHvCf0/edit?usp=sharing&#34;&gt;Lecture 1: Android Dev 101 &amp;amp; App
+Anatomy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;about-the-site&#34;&gt;About the Site&lt;/h1&gt;
+
+&lt;p&gt;I made this site using &lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&#34;https://github.com/tanksuzuki&#34;&gt;Asuka Suzuki&lt;/a&gt; for his MIT-licensed
+&lt;a href=&#34;http://themes.gohugo.io/hemingway/&#34;&gt;Hemingway
+theme&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

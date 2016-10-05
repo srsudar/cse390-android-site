@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homeworks on CSE 390 A1: Android Programming</title>
+    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/</link>
+    <description>Recent content in Homeworks on CSE 390 A1: Android Programming</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Oct 2016 17:31:19 -0700</lastBuildDate>
+    <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/homework/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 1</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</link>
+      <pubDate>Tue, 04 Oct 2016 17:31:19 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</guid>
+      <description>&lt;p&gt;Your homework for this week is to get your dev environment set up. Once it is
+running, create a new app like I demonstrated in the slides (Lecture 1, see
+previous post) and run it on either your device or an emulator.&lt;/p&gt;
+
+&lt;p&gt;After that, download and open this project in Android Studio:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/srsudar/mdr-original&#34;&gt;https://github.com/srsudar/mdr-original&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Run the tests and run the app on your device or emulator.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If you get stuck email me and I will help you!!!&lt;/strong&gt; There is nothing worse
+than being stuck on something like configuration or not being able to run code
+that other people can run. If any of this is confusing (i.e. how do I download
+and open a project?), email me and I will explain it better!&lt;/p&gt;
+
+&lt;p&gt;Right away with the &lt;code&gt;mdr-original&lt;/code&gt; project someone got an error saying that
+android-22 was not found on their machine. This means the SDK for Android
+version 22 is not installed, and many of you will likely see the same error.
+This is not an error with the app but with your build environment, and is one
+of the most common types of Android errors. Launch the SDK manager (as shown in
+the slides), and install version 22. It should then work (or at least that
+error should go away).&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
