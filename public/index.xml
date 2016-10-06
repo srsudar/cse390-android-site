@@ -6,8 +6,23 @@
     <description>Recent content on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Oct 2016 17:31:19 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 06 Oct 2016 08:27:31 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Room Change: GUG 218</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/room-change/</link>
+      <pubDate>Thu, 06 Oct 2016 08:27:31 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/room-change/</guid>
+      <description>&lt;p&gt;To try and better accommodate overloads, we have moved rooms to &lt;a href=&#34;https://www.washington.edu/maps/#!/gug&#34;&gt;Guggenheim
+218&lt;/a&gt;. It has windows and lacks a giant
+pillar in the middle of the room, so that is a win.&lt;/p&gt;
+
+&lt;p&gt;My inbox has been relatively quiet, given how finicky Android Studio can be. If
+you get stuck, let me know.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 1</title>
