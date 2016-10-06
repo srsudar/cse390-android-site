@@ -7,7 +7,7 @@ The site is built using [Hugo](https://gohugo.io/).
 
 New content is added via `hugo new post/new-post.md`. Edit that file happily.
 
-The files for the public site lives in the `public/` directory. It is built
+The files for the public site live in the `public/` directory. They are built
 from the other files using the command `hugo`.
 
 To push to the UW servers I then run:
