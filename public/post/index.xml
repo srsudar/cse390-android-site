@@ -6,8 +6,43 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Oct 2016 12:42:18 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 12 Oct 2016 08:23:37 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 2: The Lifecycle</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-2/</link>
+      <pubDate>Wed, 12 Oct 2016 08:23:37 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-2/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about the Android lifecycle. Here is a link to the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1bKBzo0rbi8NsmZc15VpX6DXrIJ4zPMX71EBpYIR2k2o/edit#slide=id.g183ccd2a56_0_5&#34;&gt;Lecture 2: Android Lifecycle&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I&amp;rsquo;ve created a repo called &lt;a href=&#34;https://github.com/srsudar/cse390-android-playground&#34;&gt;cse390-android-playground&lt;/a&gt;
+that I&amp;rsquo;ll keep updating over the course of the quarter to demonstrate small,
+bite-sized pieces of code outside of a coherent app context. As the README
+there indicates, it is organized by branches. This week check out
+&lt;code&gt;intent-basics&lt;/code&gt; and &lt;code&gt;lifecycle-logs&lt;/code&gt; and mess around with the code.&lt;/p&gt;
+
+&lt;p&gt;Here are some more links you might find useful. Some of the images on the
+slides came from these pages, and they provide a lot more detail:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/guide/components/activities.html&#34;&gt;Activities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/activity-lifecycle/index.html&#34;&gt;Activity Lifecycle
+Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/activity-lifecycle/starting.html&#34;&gt;Starting an
+Activity&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Office Hours Mondays 4-5</title>
