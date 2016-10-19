@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework 3 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">October 18, 2016</h2>
+    <h1 class="title">Homework 3</h1>
+    <div class="content">
+      
+
+<h1 id="tl-dr">tl;dr</h1>
+
+<p>Check out the branch <code>failing-tests-1</code> from the mdr-original project you built
+for Homework 1. Many tests should fail. Fix both the tests in the <code>android</code> and
+<code>androidTests</code> configurations. Some rules:</p>
+
+<ol>
+<li><strong>DO NOT CHANGE THE TESTS</strong>: You should not have to edit any test code to
+get these to pass. All changes should be made in non-test Java files and in
+xml files. If you think you found a reason you need to change test code, and
+you REALLY REALLY REALLY think you&rsquo;re right, email me and ask.</li>
+<li><strong>DO NOT LOOK AT THE DIFF</strong>: This is a git repo. The nature of version
+control allows you to fix all the tests via nothing more than git trickery.
+This would be super lame, however. Android is something where you learn by
+doing. If you cheat, you&rsquo;re only hurting yourself. Further, these
+assignments are largely optional. You could just not do it and save the
+effort you think you&rsquo;re saving by using the diff. If you&rsquo;re taking the time
+to revert the diff and find yourself feeling clever, that feeling might be
+misplaced.</li>
+</ol>
+
+<h1 id="back-story">Back Story</h1>
+
+<p>An incompetent collaborator has gotten ahold of the
+<a href="https://github.com/srsudar/mdr-original">mdr-original</a> project. Thinking
+themselves brilliant, they&rsquo;ve made loads of edits but never run the tests. &lsquo;I
+am god&rsquo;s gift to Android programming&rsquo;, you imagine them saying as they type
+<code>git push</code>.</p>
+
+<p>Being the selfless hero that you are, it falls to you to save the project from
+incompetence. You clench your jaw, imagine yourself on a mountain before a flag
+waving triumphantly in the wind, and with a steely gaze you get to work.</p>
+
+<h1 id="the-how">The &lsquo;How&rsquo;</h1>
+
+<p>The broken tests are on the branch called <code>failing-tests-1</code>. Assuming you are
+using <code>git</code> from the command line, you would run this:</p>
+
+<pre><code class="language-shell">git fetch
+git checkout failing-tests-1
+git branch # should output '*failing-tests-1' or similar
+</code></pre>
+
+<p>Open the code in Android Studio. You should encounter a build error complaining
+about a tool not found (unless you&rsquo;d installed it previously).  This was
+intentional. &gt;:) In the real world you&rsquo;ll have to fix a lot of these types of
+errors. Better to get comfortable with them when there&rsquo;s someone you can ask
+(me).</p>
+
+<p>There are two types of tests in Android Studio: <code>test</code> and <code>androidTest</code>.
+<code>test</code> are unit tests that can run on the JVM. In this case we&rsquo;ve configured
+them to use Robolectric (more on this next week). <code>androidTest</code> are tests that
+need to run on an actual device. To run these you&rsquo;ll need either a physical
+device or an emulator.</p>
+
+<p>Right click on the <code>android</code> tests and click &lsquo;Run Tests&rsquo;. <strong>29 tests should
+fail</strong>. Your job is to get them passing. Fixing one bug might fix more than one
+tests, so it&rsquo;s not as bad as it may seem at first.</p>
+
+<p>Right click on the <code>androidTest</code> tests and click &lsquo;Run Tests&rsquo;. <strong>1 test should
+fail</strong>. You need an emulator or physical device for this one.</p>
+
+<p>Look at the logs for the errors. This will be helpful in many cases, and will
+tell you were to look. Most of these tests have to do with Android UI (e.g.
+<code>View</code>s), and one or two may pertain to the lifecycle.</p>
+
+<p>You should <strong>not need to edit the tests for any of these to pass</strong>. If you
+think you do, email me and I will tell you if I&rsquo;ve made a mistake. I&rsquo;ll forward
+your email to the list, giving you credit. Tears of joy will be shed, glory
+will be basked in. Life will be good. (But seriously, I don&rsquo;t think you&rsquo;ll need
+to edit any tests.)</p>
+
+<p>You should also <strong>not look at the diff</strong>. I could have done this in a way that
+didn&rsquo;t give you access to the git history. I didn&rsquo;t think it was worth the
+effort. If you&rsquo;re cheating, you&rsquo;re only hurting yourself.</p>
+
+<blockquote>
+<p>See the tl;dr section for more on the rules.</p>
+</blockquote>
+
+<p>Don&rsquo;t forget that UIs are generally specified two places:</p>
+
+<ol>
+<li>An xml file, e.g. <code>res/layout/activity_main.xml</code>.</li>
+<li>A Java Activity, e.g. <code>org/mamasdelrio/android/MainActivity.java</code>.</li>
+</ol>
+
+<p>You&rsquo;ll have to edit more than these files, but those are good places to start.</p>
+
+<p>If you get stuck, <a href="https://catalyst.uw.edu/gopost/conversation/sudars/974700">ask questions on this thread on the message
+board</a>. If that
+doesn&rsquo;t work or you don&rsquo;t feel comfortable posting there, I&rsquo;m also happy to
+field emails.</p>
+
+<h1 id="the-why">The &lsquo;Why&rsquo;</h1>
+
+<p>These tests try to give you more exposure to UI, <code>View</code>s, and <code>Activity</code>s. Next
+week you&rsquo;ll have to create UIs (with tests!) from scratch yourself. Use this to
+get accustomed to how everything works together.</p>
+
+<h1 id="submitting">Submitting</h1>
+
+<p>Fork the repo on github and submit your changes to a <code>failing-tests-1</code> branch
+there. <a href="https://help.github.com/articles/fork-a-repo/">Here is a guide on github
+forking</a>. Email me the link with
+&lsquo;HW 3: Submission&rsquo; in the subject.</p>
+
+<p>I recognize this is a bit of a git-heavy and github-heavy class if you&rsquo;re not
+familiar with these tools. If you find this overwhelming, email me and I will
+try to help you understand them. These are things that you&rsquo;ll be better off
+knowing, and I am consciously trying to encourage that you become comfortable
+with them. If you <strong>really</strong> don&rsquo;t want to use github, you can email me a patch
+file with the same subject as above.</p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+

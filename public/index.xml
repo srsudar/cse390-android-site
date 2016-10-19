@@ -6,8 +6,154 @@
     <description>Recent content on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Oct 2016 08:34:52 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 18 Oct 2016 16:05:07 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 3</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-3/</link>
+      <pubDate>Tue, 18 Oct 2016 16:05:07 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-3/</guid>
+      <description>
+
+&lt;h1 id=&#34;tl-dr&#34;&gt;tl;dr&lt;/h1&gt;
+
+&lt;p&gt;Check out the branch &lt;code&gt;failing-tests-1&lt;/code&gt; from the mdr-original project you built
+for Homework 1. Many tests should fail. Fix both the tests in the &lt;code&gt;android&lt;/code&gt; and
+&lt;code&gt;androidTests&lt;/code&gt; configurations. Some rules:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;DO NOT CHANGE THE TESTS&lt;/strong&gt;: You should not have to edit any test code to
+get these to pass. All changes should be made in non-test Java files and in
+xml files. If you think you found a reason you need to change test code, and
+you REALLY REALLY REALLY think you&amp;rsquo;re right, email me and ask.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DO NOT LOOK AT THE DIFF&lt;/strong&gt;: This is a git repo. The nature of version
+control allows you to fix all the tests via nothing more than git trickery.
+This would be super lame, however. Android is something where you learn by
+doing. If you cheat, you&amp;rsquo;re only hurting yourself. Further, these
+assignments are largely optional. You could just not do it and save the
+effort you think you&amp;rsquo;re saving by using the diff. If you&amp;rsquo;re taking the time
+to revert the diff and find yourself feeling clever, that feeling might be
+misplaced.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;back-story&#34;&gt;Back Story&lt;/h1&gt;
+
+&lt;p&gt;An incompetent collaborator has gotten ahold of the
+&lt;a href=&#34;https://github.com/srsudar/mdr-original&#34;&gt;mdr-original&lt;/a&gt; project. Thinking
+themselves brilliant, they&amp;rsquo;ve made loads of edits but never run the tests. &amp;lsquo;I
+am god&amp;rsquo;s gift to Android programming&amp;rsquo;, you imagine them saying as they type
+&lt;code&gt;git push&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Being the selfless hero that you are, it falls to you to save the project from
+incompetence. You clench your jaw, imagine yourself on a mountain before a flag
+waving triumphantly in the wind, and with a steely gaze you get to work.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-how&#34;&gt;The &amp;lsquo;How&amp;rsquo;&lt;/h1&gt;
+
+&lt;p&gt;The broken tests are on the branch called &lt;code&gt;failing-tests-1&lt;/code&gt;. Assuming you are
+using &lt;code&gt;git&lt;/code&gt; from the command line, you would run this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;git fetch
+git checkout failing-tests-1
+git branch # should output &#39;*failing-tests-1&#39; or similar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Open the code in Android Studio. You should encounter a build error complaining
+about a tool not found (unless you&amp;rsquo;d installed it previously).  This was
+intentional. &amp;gt;:) In the real world you&amp;rsquo;ll have to fix a lot of these types of
+errors. Better to get comfortable with them when there&amp;rsquo;s someone you can ask
+(me).&lt;/p&gt;
+
+&lt;p&gt;There are two types of tests in Android Studio: &lt;code&gt;test&lt;/code&gt; and &lt;code&gt;androidTest&lt;/code&gt;.
+&lt;code&gt;test&lt;/code&gt; are unit tests that can run on the JVM. In this case we&amp;rsquo;ve configured
+them to use Robolectric (more on this next week). &lt;code&gt;androidTest&lt;/code&gt; are tests that
+need to run on an actual device. To run these you&amp;rsquo;ll need either a physical
+device or an emulator.&lt;/p&gt;
+
+&lt;p&gt;Right click on the &lt;code&gt;android&lt;/code&gt; tests and click &amp;lsquo;Run Tests&amp;rsquo;. &lt;strong&gt;29 tests should
+fail&lt;/strong&gt;. Your job is to get them passing. Fixing one bug might fix more than one
+tests, so it&amp;rsquo;s not as bad as it may seem at first.&lt;/p&gt;
+
+&lt;p&gt;Right click on the &lt;code&gt;androidTest&lt;/code&gt; tests and click &amp;lsquo;Run Tests&amp;rsquo;. &lt;strong&gt;1 test should
+fail&lt;/strong&gt;. You need an emulator or physical device for this one.&lt;/p&gt;
+
+&lt;p&gt;Look at the logs for the errors. This will be helpful in many cases, and will
+tell you were to look. Most of these tests have to do with Android UI (e.g.
+&lt;code&gt;View&lt;/code&gt;s), and one or two may pertain to the lifecycle.&lt;/p&gt;
+
+&lt;p&gt;You should &lt;strong&gt;not need to edit the tests for any of these to pass&lt;/strong&gt;. If you
+think you do, email me and I will tell you if I&amp;rsquo;ve made a mistake. I&amp;rsquo;ll forward
+your email to the list, giving you credit. Tears of joy will be shed, glory
+will be basked in. Life will be good. (But seriously, I don&amp;rsquo;t think you&amp;rsquo;ll need
+to edit any tests.)&lt;/p&gt;
+
+&lt;p&gt;You should also &lt;strong&gt;not look at the diff&lt;/strong&gt;. I could have done this in a way that
+didn&amp;rsquo;t give you access to the git history. I didn&amp;rsquo;t think it was worth the
+effort. If you&amp;rsquo;re cheating, you&amp;rsquo;re only hurting yourself.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;See the tl;dr section for more on the rules.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Don&amp;rsquo;t forget that UIs are generally specified two places:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;An xml file, e.g. &lt;code&gt;res/layout/activity_main.xml&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A Java Activity, e.g. &lt;code&gt;org/mamasdelrio/android/MainActivity.java&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You&amp;rsquo;ll have to edit more than these files, but those are good places to start.&lt;/p&gt;
+
+&lt;p&gt;If you get stuck, &lt;a href=&#34;https://catalyst.uw.edu/gopost/conversation/sudars/974700&#34;&gt;ask questions on this thread on the message
+board&lt;/a&gt;. If that
+doesn&amp;rsquo;t work or you don&amp;rsquo;t feel comfortable posting there, I&amp;rsquo;m also happy to
+field emails.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-why&#34;&gt;The &amp;lsquo;Why&amp;rsquo;&lt;/h1&gt;
+
+&lt;p&gt;These tests try to give you more exposure to UI, &lt;code&gt;View&lt;/code&gt;s, and &lt;code&gt;Activity&lt;/code&gt;s. Next
+week you&amp;rsquo;ll have to create UIs (with tests!) from scratch yourself. Use this to
+get accustomed to how everything works together.&lt;/p&gt;
+
+&lt;h1 id=&#34;submitting&#34;&gt;Submitting&lt;/h1&gt;
+
+&lt;p&gt;Fork the repo on github and submit your changes to a &lt;code&gt;failing-tests-1&lt;/code&gt; branch
+there. &lt;a href=&#34;https://help.github.com/articles/fork-a-repo/&#34;&gt;Here is a guide on github
+forking&lt;/a&gt;. Email me the link with
+&amp;lsquo;HW 3: Submission&amp;rsquo; in the subject.&lt;/p&gt;
+
+&lt;p&gt;I recognize this is a bit of a git-heavy and github-heavy class if you&amp;rsquo;re not
+familiar with these tools. If you find this overwhelming, email me and I will
+try to help you understand them. These are things that you&amp;rsquo;ll be better off
+knowing, and I am consciously trying to encourage that you become comfortable
+with them. If you &lt;strong&gt;really&lt;/strong&gt; don&amp;rsquo;t want to use github, you can email me a patch
+file with the same subject as above.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 3</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</link>
+      <pubDate>Tue, 18 Oct 2016 16:03:20 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about Building a UI. Slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1Bz13hejFW1ylJgI_bnvmof7oaOcTVWFn6pLQgyLIeL0/edit?usp=sharing&#34;&gt;Lecture 3: Building a
+UI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A lot of people were gone for the career fair. Email me or come to office hours
+if anything is confusing.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 2</title>

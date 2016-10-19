@@ -6,8 +6,30 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Oct 2016 08:23:37 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 18 Oct 2016 16:03:20 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 3</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</link>
+      <pubDate>Tue, 18 Oct 2016 16:03:20 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about Building a UI. Slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1Bz13hejFW1ylJgI_bnvmof7oaOcTVWFn6pLQgyLIeL0/edit?usp=sharing&#34;&gt;Lecture 3: Building a
+UI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A lot of people were gone for the career fair. Email me or come to office hours
+if anything is confusing.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 2: The Lifecycle</title>
