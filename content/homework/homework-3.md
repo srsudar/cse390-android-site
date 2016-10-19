@@ -23,7 +23,7 @@ for Homework 1. Many tests should fail. Fix both the tests in the `android` and
    to revert the diff and find yourself feeling clever, that feeling might be
    misplaced.
 
-# Back Story
+# Backstory
 
 An incompetent collaborator has gotten ahold of the
 [mdr-original](https://github.com/srsudar/mdr-original) project. Thinking
