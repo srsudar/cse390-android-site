@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework 4 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">October 25, 2016</h2>
+    <h1 class="title">Homework 4</h1>
+    <div class="content">
+      
+
+<h1 id="tl-dr">tl;dr</h1>
+
+<p>Implement your own <code>RecyclerView</code> to match the images shown below. Pressing the
+Floating Action Button (FAB) adds an item. Pressing the trashcan deletes the
+item. Adds and deletes are animated.</p>
+
+<h1 id="tl-but-will-still-r">tl; but will still r</h1>
+
+<p>As we talked about today,
+<a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html"><code>RecyclerView</code></a>
+is a class that facilitates displaying lists of items, and it does so
+efficiently. To accomplish this it enforces the ViewHolder design pattern in
+order to minimize the number of <code>findViewbyId()</code> calls, as these calls traverse
+the view hierarchy and can be very expensive. <code>RecyclerView</code> also provides a
+number of other benefits, including fine-grained control of child positioning,
+via the
+<a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html"><code>LayoutManager</code></a>,
+and painless animations thanks to
+<a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.ItemAnimator.html"><code>ItemAnimator</code></a>.</p>
+
+<p><strong>Homework 4 is to implement a <code>RecyclerView</code> that looks like the images shown
+below</strong>.</p>
+
+<p>I would break this into several steps. These are somewhat specific, as many
+people missed last week&rsquo;s lecture and I get the impression that the way all of
+this plumbs together remains somewhat opaque. Much of this is described in
+Android&rsquo;s guide to <a href="https://developer.android.com/training/material/lists-cards.html">Creating Lists and
+Cards</a>, so
+take a read through that as well.</p>
+
+<ol>
+<li><strong>Create a new Activity</strong>: This <code>Activity</code> will hold the <code>RecyclerView</code>. To
+get a lot of the annoying boilerplate out of the way, I would recommend
+using File | New | Activity | Gallery, and then selecting &lsquo;Basic Activity&rsquo;.
+This should include a layout and a &lsquo;Floating Action Button&rsquo;, which is a
+common design element on Android.</li>
+<li><strong>Download the icons</strong>: You&rsquo;ll need two icons for this: a trashcan and a
+white plus button to go in the FAB. Download the icons
+<a href="https://design.google.com/icons/">here</a>. They are called <code>delete</code> and
+<code>add</code>. Download the PNGs and put the <code>drawable-*</code> directories directly under
+<code>res/</code>. You can try to use an icon importer, but I&rsquo;ve never gotten this to
+work. When successful, you should be able to refer to the drawables by their
+name, e.g. <code>@drawable/ic_add_white_24dp</code> in your xml.</li>
+<li><strong>Include RecyclerView in a layout</strong>: As part of the generation process in
+step 1, Android Studio will generate some layout files for you. These files
+live in <code>res/layout/</code>, and define what your view hierarchy will look like.
+Note that in your <code>Activity</code>&rsquo;s <code>onCreate()</code> method, the wizard has called
+<code>setContentView()</code> with the name of your layout file. This is where we
+connect the layout in the xml to the UI presented by your <code>Activity</code>. Define
+a <code>RecyclerView</code> in that layout file, giving it an ID so that you can refer
+to it from you <code>Activity</code> code. The Creating Lists and Cards guide above has
+examples of this.</li>
+
+<li><p><strong>Create a dummy object to display</strong>: <code>RecyclerView</code> displays lists of
+objects. In the real world, this would be an object representing something,
+like a Github repo or an email. You can create whatever object you want for
+this. I made one called <code>FooObject</code>, the entirety of which looks like this:</p>
+
+<pre><code class="language-java">public class FooObject {
+ public String name;
+}
+</code></pre>
+
+<p>To create these objects I also made a <code>FooFactory</code>:</p>
+
+<pre><code class="language-java"> public class FooFactory {
+   public FooObject createFoo() {
+     Random random = new Random();
+     int semiRandomInt = random.nextInt(500);
+     FooObject result = new FooObject();
+     result.name = &quot;I am semi-random Foo #&quot; + semiRandomInt;
+     return result;
+   }
+ }
+</code></pre></li>
+
+<li><p><strong>Define a View to represent FooObject</strong>: Adapters create Views. In our
+case, we want to do this by inflating an xml file living under
+<code>res/layout/</code>. You should make yours look like the image below. Note that
+there are two lines. The second line has two items: a left-aligned piece of
+text and a right-aligned image of a trashcan. I used two
+<a href="https://developer.android.com/guide/topics/ui/layout/linear.html"><code>LinearLayout</code></a>s,
+two
+<a href="https://developer.android.com/reference/android/widget/TextView.html"><code>TextView</code></a>s,
+and an
+<a href="https://developer.android.com/reference/android/widget/ImageView.html"><code>ImageView</code></a>.
+I wrapped everything in a
+<a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html"><code>CardView</code></a>
+to make it look fancy.
+<img src="https://courses.cs.washington.edu/courses/cse390a1/16au/
+/homework/hw4_fooView.png" alt="Closeup of Item View" /></p></li>
+
+<li><p><strong>Create an Adapter</strong>: Extend <code>RecyclerView.Adapter</code> and implement it to
+display your <code>FooObject</code>s. Again, the guide linked above will be extremely
+helpful here.</p></li>
+
+<li><p><strong>Hook up the Activity</strong>: Follow the guide above to implement your
+<code>onCreate()</code> method. You should now be able to run the app and find an empty
+screen. Pressing the FAB will generate a little message.</p></li>
+
+<li><p><strong>Hook up the FAB</strong>: Add a <code>View.OnClickListener</code> to the FAB to add a
+<code>FooObject</code> with every click.</p></li>
+
+<li><p><strong>Hook up the delete button</strong>: Add a <code>View.OnClickListener</code> to the
+<code>ImageView</code> displaying the trash can that deletes the view from the
+<code>Adapter</code>. To do this, I had to employ the <code>ViewHolder#getAdapterPosition()</code>
+method. I also used <code>View#setTag()</code>. This is probably the trickiest part, or
+at least it was the most foreign to me. Deleting the item from the dataset
+is relatively simple, but getting the listener in a scope where you can call
+<code>getAdapterPosition()</code> might not be immediately obvious.</p></li>
+
+<li><p><strong>Hook up animations</strong>: Make sure you are calling <code>notifyItemInserted()</code> and
+<code>notifyItemRemoved()</code> when you add and remove items. This will animate the
+actions and make them look pretty.</p></li>
+</ol>
+
+<h1 id="images">Images</h1>
+
+<h2 id="closeup-of-the-item-view">Closeup of the Item View</h2>
+
+<p><img src="https://courses.cs.washington.edu/courses/cse390a1/16au/
+/homework/hw4_fooView.png" alt="Closeup of Item View" /></p>
+
+<h2 id="screenshot-of-the-main-activity">Screenshot of the Main Activity</h2>
+
+<p><img src="https://courses.cs.washington.edu/courses/cse390a1/16au/
+/homework/hw4_screenshot.png" alt="Screenshot" /></p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+
