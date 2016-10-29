@@ -14,3 +14,12 @@ draft = true
     Great post describing the new jack compiler from the Android team. To get
     into the meat of jack, it first covers in detail the classic compilation
     toolchain.
+
+# Designing an App Links
+
+* [MVP on Android with Great
+    Examples](http://engineering.remind.com/android-code-that-scales/)
+* [More MVP on Android](http://antonioleiva.com/mvp-android/)
+* [MVP in
+    General](http://stackoverflow.com/questions/1317693/what-is-model-view-presenter)
+
