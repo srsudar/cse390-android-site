@@ -6,8 +6,93 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Oct 2016 11:51:32 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 01 Nov 2016 14:02:23 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 5</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-5/</link>
+      <pubDate>Tue, 01 Nov 2016 14:02:23 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-5/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;Today we talked about designing an app. Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1JbBoJ7OQ-DTXnoQ1DlfMFtqVEUA4J6OXE5cZsfP1gwY/edit?usp=sharing&#34;&gt;Lecture 5: Designing an
+App&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One of the questions that came up was how does Mockito do its magic. The
+specific point was in an example like this one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Random mockRandom = mock(Random.class);
+int nextInt = 5;
+when(mockRandom.nextInt()).thenReturn(nextInt);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;How does Mockito take an int and apply &lt;code&gt;thenReturn()&lt;/code&gt; successfully? In other
+words, say that you break down the above example to the following. How crazy
+does this look, when really this is exactly what you are doing?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = mockRandom.nextInt();
+when(originalAnswer).thenReturn(nextInt);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I.e. you are basically saying &lt;code&gt;when(5).thenReturn(nextInt)&lt;/code&gt;, which makes no
+sense at all unless you consider the lines around it. I believe the way this
+works is that when you call a method on a mock, it obeys previously determined
+behavior (e.g. it returns the value you told it to return), &lt;strong&gt;or&lt;/strong&gt; it flags
+that stubbing has begun, and it will error if stubbing has not completed. Two
+examples. The code above, with the &lt;code&gt;when(5)&lt;/code&gt; example, does succeed and behaves
+as expected, as the first example. This code, however, will fail with a
+&lt;code&gt;MissingMethodInvocationException&lt;/code&gt; error. Clearly Mockito is tracking your
+stubbing progress, since you haven&amp;rsquo;t called any methods on the mock yet.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = 5;
+when(originalAnswer).thenReturn(nextInt);
+// Crash due to MissingMethodInvocationException
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This code, meanwhile, will fail since we&amp;rsquo;ve begun stubbing with an invocation
+of a method on the mock class (the call to &lt;code&gt;mockRandom.nextInt()&lt;/code&gt;) and called
+&lt;code&gt;when()&lt;/code&gt;, but we haven&amp;rsquo;t called &lt;code&gt;thenReturn()&lt;/code&gt; or similar. It will fail with an
+&lt;code&gt;UnfinishedStubbingException&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = mockRandom.nextInt();
+when(originalAnswer);
+// Crash due to UnfinishedStubbingException
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, calling a method on a mock seems to flag that, if stubbing is initiated
+with a call to &lt;code&gt;when()&lt;/code&gt;, the last called method is the one we want to save an
+answer for. Once that is begun via the call to &lt;code&gt;when()&lt;/code&gt;, it must be completed
+via a call to &lt;code&gt;thenReturn()&lt;/code&gt; or a similar method.&lt;/p&gt;
+
+&lt;p&gt;If you want to dive real deep down the rabbit hole, take a look at the
+&lt;a href=&#34;https://github.com/mockito/mockito/blob/release/2.x/src/main/java/org/mockito/internal/MockitoCore.java#L68&#34;&gt;implementation&lt;/a&gt;
+of the &lt;code&gt;when&lt;/code&gt; method on github.&lt;/p&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://engineering.remind.com/android-code-that-scales/&#34;&gt;MVP on Android with Great
+Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://antonioleiva.com/mvp-android/&#34;&gt;More MVP on Android&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/1317693/what-is-model-view-presenter&#34;&gt;MVP in
+General&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 4</title>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 5 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 1, 2016</h2>
+    <h1 class="title">Week 5</h1>
+    <div class="content">
+      
+
+<h1 id="recap-and-slides">Recap and Slides</h1>
+
+<p>Today we talked about designing an app. Here are the slides:</p>
+
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1JbBoJ7OQ-DTXnoQ1DlfMFtqVEUA4J6OXE5cZsfP1gwY/edit?usp=sharing">Lecture 5: Designing an
+App</a></li>
+</ul>
+
+<p>One of the questions that came up was how does Mockito do its magic. The
+specific point was in an example like this one:</p>
+
+<pre><code class="language-java">Random mockRandom = mock(Random.class);
+int nextInt = 5;
+when(mockRandom.nextInt()).thenReturn(nextInt);
+</code></pre>
+
+<p>How does Mockito take an int and apply <code>thenReturn()</code> successfully? In other
+words, say that you break down the above example to the following. How crazy
+does this look, when really this is exactly what you are doing?</p>
+
+<pre><code class="language-java">Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = mockRandom.nextInt();
+when(originalAnswer).thenReturn(nextInt);
+</code></pre>
+
+<p>I.e. you are basically saying <code>when(5).thenReturn(nextInt)</code>, which makes no
+sense at all unless you consider the lines around it. I believe the way this
+works is that when you call a method on a mock, it obeys previously determined
+behavior (e.g. it returns the value you told it to return), <strong>or</strong> it flags
+that stubbing has begun, and it will error if stubbing has not completed. Two
+examples. The code above, with the <code>when(5)</code> example, does succeed and behaves
+as expected, as the first example. This code, however, will fail with a
+<code>MissingMethodInvocationException</code> error. Clearly Mockito is tracking your
+stubbing progress, since you haven&rsquo;t called any methods on the mock yet.</p>
+
+<pre><code class="language-java">Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = 5;
+when(originalAnswer).thenReturn(nextInt);
+// Crash due to MissingMethodInvocationException
+</code></pre>
+
+<p>This code, meanwhile, will fail since we&rsquo;ve begun stubbing with an invocation
+of a method on the mock class (the call to <code>mockRandom.nextInt()</code>) and called
+<code>when()</code>, but we haven&rsquo;t called <code>thenReturn()</code> or similar. It will fail with an
+<code>UnfinishedStubbingException</code>.</p>
+
+<pre><code class="language-java">Random mockRandom = mock(Random.class);
+int nextInt = 5;
+int originalAnswer = mockRandom.nextInt();
+when(originalAnswer);
+// Crash due to UnfinishedStubbingException
+</code></pre>
+
+<p>So, calling a method on a mock seems to flag that, if stubbing is initiated
+with a call to <code>when()</code>, the last called method is the one we want to save an
+answer for. Once that is begun via the call to <code>when()</code>, it must be completed
+via a call to <code>thenReturn()</code> or a similar method.</p>
+
+<p>If you want to dive real deep down the rabbit hole, take a look at the
+<a href="https://github.com/mockito/mockito/blob/release/2.x/src/main/java/org/mockito/internal/MockitoCore.java#L68">implementation</a>
+of the <code>when</code> method on github.</p>
+
+<h1 id="links">Links</h1>
+
+<ul>
+<li><a href="http://engineering.remind.com/android-code-that-scales/">MVP on Android with Great
+Examples</a></li>
+<li><a href="http://antonioleiva.com/mvp-android/">More MVP on Android</a></li>
+<li><a href="http://stackoverflow.com/questions/1317693/what-is-model-view-presenter">MVP in
+General</a></li>
+</ul>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+
