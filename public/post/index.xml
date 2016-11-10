@@ -6,8 +6,40 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Nov 2016 14:02:23 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 10 Nov 2016 10:21:48 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 6</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-6/</link>
+      <pubDate>Thu, 10 Nov 2016 10:21:48 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-6/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about java compilation, classpaths, and the Android build
+system. We even dived into the Android SDK, using a JAR viewer to look at the
+&lt;code&gt;Throw new RuntimeException(&amp;quot;Stub!&amp;quot;)&lt;/code&gt; code in every method call of the Android
+SDK. Such fun. Here is a link to the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1DZ0RjEiTwwyJrn30V640NOE8NPmIY615yQ3TCJND0Ck/edit?usp=sharing&#34;&gt;Lecture 6: Building and
+Dependencies&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://trickyandroid.com/the-dark-world-of-jack-and-jill/&#34;&gt;The Dark Side of Jack and
+Jill&lt;/a&gt;:
+Great post describing the new jack compiler from the Android team. To get
+into the meat of jack, it first covers in detail the classic compilation
+toolchain.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 5</title>

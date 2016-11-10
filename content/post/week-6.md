@@ -1,11 +1,18 @@
 +++
-date = "2016-10-21T10:21:48-07:00"
-title = "week 6"
-draft = true
+date = "2016-11-10T10:21:48-07:00"
+title = "Week 6"
 
 +++
 
 # Recap and Slides
+
+This week we talked about java compilation, classpaths, and the Android build
+system. We even dived into the Android SDK, using a JAR viewer to look at the
+`Throw new RuntimeException("Stub!")` code in every method call of the Android
+SDK. Such fun. Here is a link to the slides:
+
+* [Lecture 6: Building and
+    Dependencies](https://docs.google.com/presentation/d/1DZ0RjEiTwwyJrn30V640NOE8NPmIY615yQ3TCJND0Ck/edit?usp=sharing)
 
 # Links
 
@@ -14,11 +21,3 @@ draft = true
     Great post describing the new jack compiler from the Android team. To get
     into the meat of jack, it first covers in detail the classic compilation
     toolchain.
-
-## Android Design Articles
-
-* [Saving Key-Value
-    Sets](https://developer.android.com/training/basics/data-storage/shared-preferences.html):
-    Android docs on saving key-values. Covers `SharedPreferences` especially.
-* [Saving Data in SQL
-    Databases](https://developer.android.com/training/basics/data-storage/databases.html)

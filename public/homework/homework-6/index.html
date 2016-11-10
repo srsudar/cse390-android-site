@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework 6 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 10, 2016</h2>
+    <h1 class="title">Homework 6</h1>
+    <div class="content">
+      
+
+<h1 id="tl-dr">tl;dr</h1>
+
+<ol>
+<li><p>Send me an email addressing the three bullet points below in the Dependency
+Hell section.</p>
+
+<ol>
+<li>Why are you getting that error</li>
+<li>What libraries are causing the problem</li>
+<li>How would you fix it?</li>
+</ol></li>
+
+<li><p>Send me an email with a link to your repo test class for a modal view like I
+describe below. If you are doing your own app, send me a file with tests.
+They should pass.</p></li>
+</ol>
+
+<h1 id="long-form">Long Form</h1>
+
+<p>This week the plan is to write some Robolectric tests. If you&rsquo;re creating your
+own app (as opposed to creating the Github repo browser like I am doing), you
+should write tests that make sense for your app.</p>
+
+<p><a href="https://github.com/robolectric/robolectric">Robolectric</a> lets us write unit
+tests that don&rsquo;t depend on the Android framework. Normally, Android code can
+only run on an actual device. This is because, at compile time, the Android
+java code comes from the SDK. The <code>.class</code> files in the SDK, however, like the
+<code>Activity.class</code> file you reference when you <code>import android.app.Activity;</code>, do
+not have real implementations. They have the same signatures (i.e. the same
+methods), but the implementations all are <code>throw new
+RuntimeException(&quot;Stub!&quot;);</code>. This means that you can&rsquo;t actually run the java
+code that you compile if you add this code to your runtime classpath. When you
+run the code on a device, this isn&rsquo;t a problem, as the Android <code>.class</code> files
+are provided by the Android device itself on the run time classpath.</p>
+
+<p>Robolectric changes this. It provides real implementations of the Android
+<code>.class</code> files, allowing us to run code on the Java Virtual Machine (JVM),
+rather than the Dalvik VM that runs Android code on the device. If this sounds
+complicated and confusing, it is. No need to worry if it doesn&rsquo;t make complete
+sense right away. The benefit to running it on the JVM is that you don&rsquo;t need
+to pull out your phone, hook it up, and wait for the APK to install just to run
+a simple unit test. The other benefit is that Robolectric wraps some of the
+Android code, allowing you acess to variables and objects that Android doesn&rsquo;t
+expose. This lets you write more meaningful assertions (in some cases).
+Robolectric is widely used for Android unit tests. It isn&rsquo;t the only option,
+but it is very commonly used.</p>
+
+<h1 id="tasks">Tasks</h1>
+
+<h2 id="1-dependency-hell">1. Dependency Hell</h2>
+
+<p>First we&rsquo;re look at one of the build issues I talked about in class. My version
+of the Github repo browser is located at
+<a href="https://github.com/srsudar/GithubHotness">github.com/srsudar/GithubHotness</a>.
+Clone this repo and pull the tags, then check out the tag
+<code>guava-version-mismatch</code>:</p>
+
+<pre><code class="language-shell"># From within the cloned repo
+git pull origin --tags
+git checkout guava-version-mismatch
+</code></pre>
+
+<p>You&rsquo;ll be in a detached HEAD state, but that&rsquo;s ok. <strong>All of the following
+commands assume you are in the top level of the repo (the one with the <code>.git/</code>
+directory).</strong></p>
+
+<p>First, let&rsquo;s try running the tests from the command line, rather than from
+Android Studio. This corresponds to a gradle task named <code>testDebugUnitTest</code>.
+If you have gradle installed, you can run <code>gradle :app:testDebugUnitTest</code>.
+However, this isn&rsquo;t a perfect solution. For one, recall one of my primary
+complaints about Eclipse in class&ndash;it doesn&rsquo;t readily give you a way to perform
+clean, repeatable builds in a way that is separate from the UI. The command
+above is similarly not ideal. It might work, but it won&rsquo;t be completely
+repeatable. Relying on the installed version of gradle is the problem
+here&ndash;what if collaborators use a different gradle version or different
+settings? Maybe the builds will be subtly different in a way that is hard to
+reproduce or leads to tricky bugs.</p>
+
+<p>To circumvent this, gradle typically ships with the so-called &lsquo;gradle wrapper&rsquo;.
+(This isn&rsquo;t the only benefit of using the wrapper, but it is a plus.) The
+gradle wrapper is the file named <code>gradlew</code> in the directory. It has executable
+permissions and can be used as a replacement for the bare gradle command. So
+instead of <code>gradle :app:testDebugUnitTest</code>, you should run <code>./gradlew
+:app:testDebugUnitTest</code>. The <code>:app</code> portion of the command tells gradle to look
+in the app directory (or at the <code>app</code> target), and the <code>:testDebugUnitTest</code>
+tells it to run the task called <code>testDebugUnitTest</code>. If you type <code>./gradlew
+:app:tasks</code>, you will see a list of all the tasks in the <code>app</code> target that you
+can run.</p>
+
+<p>Run <code>./gradlew :app:testDebugUnitTest</code>. If you&rsquo;ve checked out the
+<code>guava-version-mismatch</code> tag, you should see an error, complaining that there
+is a mismatch with a dependency called guava.</p>
+
+<p>After you find that, run <code>./gradlew :app:dependencies</code>. This will show you your
+complete dependency tree for the various targets in the <code>app</code> module.</p>
+
+<p>Send me an email with the following:</p>
+
+<ol>
+<li>What is the meaning of the error that you are seeing when you try the
+<code>testDebugUnitTest</code> task? What is going on, and why is that a problem?
+Google it if it isn&rsquo;t obvious.</li>
+<li>What libraries are causing the conflict?</li>
+<li>What are some potential ways to fix this? This is the hardest part. You can
+look at the <code>master</code> branch to see what I eventually did.</li>
+</ol>
+
+<h1 id="2-write-robolectric-tests-for-a-modal-recyclerview">2. Write Robolectric Tests for a Modal RecyclerView</h1>
+
+<p>The real bulk of the assignment this week is going to be writing a small view,
+and writing tests to go along with that view. The idea here is that a
+RecyclerView (which you implemented over the past two weeks), is a great way to
+display lists of items. However, when you display lists of items, you generally
+need to handle a few other cases as well. For example, what if there are no
+items to display? The default behavior is just to display nothing. That isn&rsquo;t
+ideal, as the user won&rsquo;t know if there&rsquo;s just nothing to view, if something has
+gone wrong, etc. I like to handle four potential states when I am writing a
+view to display a list of items:</p>
+
+<ul>
+<li>Loaded: Everything worked and you&rsquo;ve loaded some items. This will just
+display the RecyclerView.</li>
+<li>Empty: Everything worked, but there are no items to display. This will
+probably just be a <code>TextView</code> saying something like &lsquo;Nothing to see here.&rsquo;</li>
+<li>Error: There was an error somewhere along the line. You can update this with
+specifics of the error, but the minimum thing you&rsquo;ll need is a message
+saying something like &lsquo;Whoops, something went wrong&rsquo;.</li>
+<li>Loading: This is a spinning icon or a loading bar to show that work is being
+done. One candidate here is some sort of progress bar set to indeterminate
+progress status. In my example I&rsquo;m using a
+<a href="https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html"><code>SwipeRefreshLayout</code></a>
+to give a &lsquo;pull down to refresh action&rsquo;, so my loading view is just to set
+this to refresh initiated. When a load completes, I call the view to
+indicate that the load has completed, hiding the little spinning icon.</li>
+</ul>
+
+<p>So, the idea here is to write a view that has these four modes: Loaded, Empty,
+Error, and Loading. When I did this, I defined an <code>enum</code> with those four
+choices, subclassed <code>LinearLayout</code>, and created a method called
+<code>updateViewState(ViewState viewState)</code>. This is responsible for hiding all the
+irrelevant views and showing only the view that matches <code>viewState</code>.</p>
+
+<p>As you implement that class, you should write Robolectric tests to ensure that
+you are showing and hiding the views as appropriate. <strong>To submit the
+assignment, send me links to the class holding your tests.</strong></p>
+
+<p>Here is some starter code (that won&rsquo;t run or build), that you can use for an
+idea of what I&rsquo;m looking for. The full files are in the
+<a href="https://github.com/srsudar/GithubHotness">repo</a> if you get stuck. Note that
+because I&rsquo;m using Dagger2 for dependency injection, the way I&rsquo;m creating
+objects for member variables may look unfamiliar.</p>
+
+<p>My <code>RepoListView</code> class:</p>
+
+<pre><code class="language-java">public class RepoListView extends LinearLayout {
+  public enum ViewState {
+    LOADED, EMPTY, ERROR, LOADING
+  }
+
+  RecyclerView rvItems; // Your RecyclerView, which will display the items
+  TextView tvEmpty;     // Contains the message for empty
+  TextView tvError;     // Contains the message for an error
+  TextView tvLoading;   // Contains a message for loading
+
+  public RepoListView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(context);
+  }
+
+  public RepoListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(context);
+  }
+
+  private void init(Context context) {
+    // You'll need to define a view in layout/ that has the appropriate
+    // children views.
+    LayoutInflater.from(context).inflate(R.layout.view_repo_list, this, true);
+
+    // All the findViewById calls, setting up the items, adapter, etc
+  }
+
+  public void updateViewState(ViewState state) {
+    switch (state) {
+      // Show and hide the views.
+
+    }
+  }
+
+  // More methods as you need them. Take a look in my project if you want to
+  // see how I did it, but try on your own first.
+}
+</code></pre>
+
+<p>Your test file might then look like this:</p>
+
+<pre><code class="language-java">@RunWith(RobolectricTestRunner.class)
+@Config(
+  constants = BuildConfig.class,
+  sdk = 22
+)
+public class RepoListViewTest {
+  RepoListView view;
+
+  @Before
+  public void before() {
+    // This method is run before each test.
+    LayoutInflater inflater =
+        LayoutInflater.from(RuntimeEnvironment.application);
+    view = inflater.inflate(R.layout.inflatable_repo_list_view);
+
+    // Set up mocks here. Remember that you want to test ONLY RepoListView
+    // functionality here, not any dependency code. You might do something
+    // like:
+    view.adapter = mock(MyAdapter.class);
+    // etc
+  }
+
+  @Test
+  public void updateViewState_correctForLoaded() {
+    // Test code here. I have lines like the following.
+    // To get these great assertions, I have this line in my build.gradle:
+    // testCompile 'com.squareup.assertj:assertj-android:1.1.1'
+    // If that gives you build errors, look at my whole file here and see if
+    // this 'exclude' option fixes it for you:
+    // https://github.com/srsudar/GithubHotness/blob/master/app/build.gradle
+    ...
+    assertThat(view.tvError).isGone();
+    ...
+  }
+
+  @Test
+  public void updateViewState_correctForLoading() {
+
+  }
+
+  @Test
+  public void updateViewState_correctForError() {
+
+  }
+
+  @Test
+  public void updateViewState_correctForEmpty() {
+
+  }
+}
+</code></pre>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+
