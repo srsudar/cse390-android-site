@@ -7,4 +7,8 @@ draft = true
 
 # Links
 
-* [Parsing JSON with Retrofit](http://randomdotnext.com/retrofit-rxjava/)
+* [Saving Key-Value
+    Sets](https://developer.android.com/training/basics/data-storage/shared-preferences.html):
+    Android docs on saving key-values. Covers `SharedPreferences` especially.
+* [Saving Data in SQL
+    Databases](https://developer.android.com/training/basics/data-storage/databases.html)

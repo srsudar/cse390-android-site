@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework 7 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 15, 2016</h2>
+    <h1 class="title">Homework 7</h1>
+    <div class="content">
+      
+
+<h1 id="tl-dr">tl;dr</h1>
+
+<p>Write code to parse a JSON search result from the Github search API. I
+recommend following <a href="http://randomdotnext.com/retrofit-rxjava/">this tutorial</a>.
+<a href="https://api.github.com/search/repositories?sort=stars&amp;order=desc&amp;q=created:%3E2016-10-01&amp;per_page=25">Here is a good
+URL</a>
+for results that are a list of repos.</p>
+
+<h1 id="muy-largo">Muy Largo</h1>
+
+<p>This week I want you to write a class that makes an HTTP GET request to a JSON
+endpoint and parses the response to turn it into a Java object.</p>
+
+<p>There are lots of ways you could go about doing this. I suggest using
+<a href="https://square.github.io/retrofit/">Retrofit</a> and
+<a href="https://github.com/ReactiveX/RxJava">RxJava</a>. A good tutorial on how to use
+these together can be found <a href="http://randomdotnext.com/retrofit-rxjava/">here</a>.
+When I wrote my version of the app, I basically followed that.</p>
+
+<h2 id="aside-json-endpoints">Aside: JSON Endpoints</h2>
+
+<p>JSON is an extremely common data serialization format. This means it is easy to
+go from objects in code to something that can be written to disk (e.g. to save
+as a file or send over the network) and then back into code. I won&rsquo;t give a
+whole tutorial here, but it basically lets you use <code>[ ]</code> to create an array (or
+a list of items), and <code>{ }</code> to define a map.</p>
+
+<p>For example, go to
+<a href="https://api.github.com/users/srsudar/repos">api.github.com/users/srsudar/repos</a>
+and look at the response. It is a blob of text. If you install a Chrome
+extension <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en">like this
+one</a>
+you can view the response with formatting and color. It is nice. At the time of
+this writing, I see something like:</p>
+
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 18454181,
+    &quot;name&quot;: &quot;android-primer&quot;,
+    &quot;full_name&quot;: &quot;srsudar/android-primer&quot;,
+    [ ... snip long code ... ]
+  },
+  {
+    &quot;id&quot;: 22605955,
+    &quot;name&quot;: &quot;android-should-know&quot;,
+    &quot;full_name&quot;: &quot;srsudar/android-should-know&quot;
+    [ ... snip long code ... ]
+  },
+  [ ... snip more items ... ]
+]
+</code></pre>
+
+<p>This represents an array of repositories. We know it is an array because the
+response starts and ends with <code>[ ]</code>. Each element in the array is an object
+(because it starts with <code>{ }</code>) that has lots of properties. In this case I&rsquo;m
+only showing <code>id</code>, <code>name</code>, and <code>full_name</code>.</p>
+
+<p>Many, many services expose JSON endpoints for you to consume and mess around
+with. You can see the whole Github API description
+<a href="https://developer.github.com/v3/">here</a>.</p>
+
+<h2 id="what-does-it-mean-to-fetch-json-on-android">What Does it Mean to Fetch JSON on Android?</h2>
+
+<p>There are several steps required to fetch JSON on Android:</p>
+
+<ol>
+<li>Get a background thread: Because you can&rsquo;t execute network requests on the
+main thread, you&rsquo;ll need to do something to ensure you make the request on a
+background thread.</li>
+<li>Issue the network request: Now you have to issue an HTTP GET request to your
+given endpoint.</li>
+<li>Get the response as a String: HTTP requests respond with a message body. If
+you&rsquo;re talking to a JSON endpoint, this is interpreted as a String.</li>
+<li>Parse the response: Once you get the response body as a String, you need to
+parse that String into a JSON object. If you&rsquo;re working with JavaScript,
+that is easy, as JSON is a first class citizen in JavaScript. However, since
+Java is a typed languaged, you need to go through an extra step of
+converting the response into Java obects. In our Github API demo above, this
+might mean a <code>Repo</code> object with an <code>int</code> field <code>id</code>, a <code>String</code> field
+<code>name</code>, and a <code>String</code> field <code>full_name</code>.</li>
+</ol>
+
+<h2 id="retrofit-and-rxjava">Retrofit and RxJava</h2>
+
+<p>In class I gave an example using Retrofit and RxJava. Retrofit takes care of
+steps 2, 3, and 4 for you. All you have to do is provide the <code>Repo</code> object (or
+a similar object for a different JSON endpoint) and make the request.</p>
+
+<p>You can use RxJava to handle step 1&ndash;making a request on a background thread.</p>
+
+<p>Using the two of them together you can handle the steps 1-4 and use JSON on
+Android. Neat.</p>
+
+<h2 id="goal-this-week">Goal this Week</h2>
+
+<p>The goal for this week is to write Android code that will talk to and parse the
+Github API like the one above. This will be a lot of following code tutorials.
+I recommend <a href="http://randomdotnext.com/retrofit-rxjava/">this one</a>.</p>
+
+<p>I would start by following that tutorial exactly and querying that API. Then,
+if you&rsquo;re following along with the GithubHotness application I&rsquo;m creating for
+the course, you&rsquo;ll want to update it to use the <code>/search/repositories</code> API to
+query by date created and sort by the number of stars.</p>
+
+<p>A full search URL might look like this:</p>
+
+<pre><code>https://api.github.com/search/repositories?sort=stars&amp;order=desc&amp;q=created:%3E2016-10-01&amp;per_page=25
+</code></pre>
+
+<p>Note that that we are adding &lsquo;query parameters&rsquo; to the URL. Query parameters
+are the things following the <code>?</code> in the URL. They are key-value pairs. Each
+pair is separated by <code>&amp;</code>. So you could have something like
+<code>example.com?foo=fooVal&amp;bar=barVal</code>. Here we have two query parameters: <code>foo</code>
+and <code>bar</code>.</p>
+
+<p>In that URL we have <code>sort</code>, <code>order</code>, <code>q</code>, and <code>per_page</code>. Documentation on the
+search API can be found <a href="https://developer.github.com/v3/search/">here</a>.</p>
+
+<p>To pass these query parameters to Retrofit, you&rsquo;ll need to use the <code>@Query</code>
+annotation. In my project I&rsquo;ve wrapped them in something called
+<code>GithubService</code>, which looks like the following:</p>
+
+<pre><code class="language-java">String SEARCH = &quot;/search/repositories&quot;;
+
+@GET(SEARCH)
+Observable&lt;SearchResponse&gt; searchMostPopularRepos(
+    @Query(&quot;sort&quot;) String sort,
+    @Query(&quot;order&quot;) String order,
+    @Query(&quot;q&quot;) String query,
+    @Query(&quot;per_page&quot;) int perPage);
+</code></pre>
+
+<p>I&rsquo;m returning a <code>SearchResponse</code>, not a list of items. If you navigate to the
+<a href="https://api.github.com/search/repositories?sort=stars&amp;order=desc&amp;q=created:%3E2016-10-01&amp;per_page=25">search url</a>
+you&rsquo;ll see something like this:</p>
+
+<pre><code class="language-json">{
+  &quot;total_count&quot;: 1661015,
+  &quot;incomplete_results&quot;: false,
+  &quot;items&quot;: []
+}
+</code></pre>
+
+<p>The endpoint isn&rsquo;t just giving you a list of repositories, it&rsquo;s actually giving
+you some metadata (the <code>total_count</code> and <code>incomplete_results</code> properties) and
+then the results themselves in the <code>items</code> property. You need to help Retrofit
+know how to parse this. In my case, I care only about the repositories
+themselves, so I just have a <code>List&lt;Repo&gt;</code> field with an annotation telling
+Retrofit that this is called <code>items</code> in the response:</p>
+
+<pre><code class="language-java">public class SearchResponse {
+  @SerializedName(&quot;items&quot;)
+  private ArrayList&lt;Repo&gt; repos;
+
+  public List&lt;Repo&gt; getRepos() {
+    return repos;
+  }
+
+  public void setRepos(ArrayList&lt;Repo&gt; repos) {
+    this.repos = repos;
+  }
+
+  @Override
+  public String toString() {
+    return &quot;SearchResponse{&quot; +
+        &quot;repos=&quot; + repos +
+        '}';
+  }
+}
+</code></pre>
+
+<p>Your assignment this week is to follow the tutorial, using the code samples
+like I&rsquo;ve provided here, to parse a list of repositories from a search result.
+Ideally, you&rsquo;d plug this into your <code>RecyclerView</code> from last week, but that
+might be pushing it. For now, if you are just able to parse the results and log
+them, that will be a good step.</p>
+
+<p>If you get stumped, ask me or take a look at how I did it in the <a href="https://github.com/srsudar/GithubHotness">GithubHotness
+repo</a>.</p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+

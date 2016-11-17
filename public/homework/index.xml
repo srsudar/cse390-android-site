@@ -6,8 +6,198 @@
     <description>Recent content in Homeworks on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Nov 2016 11:55:37 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Nov 2016 18:04:43 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/homework/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 7</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-7/</link>
+      <pubDate>Tue, 15 Nov 2016 18:04:43 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-7/</guid>
+      <description>
+
+&lt;h1 id=&#34;tl-dr&#34;&gt;tl;dr&lt;/h1&gt;
+
+&lt;p&gt;Write code to parse a JSON search result from the Github search API. I
+recommend following &lt;a href=&#34;http://randomdotnext.com/retrofit-rxjava/&#34;&gt;this tutorial&lt;/a&gt;.
+&lt;a href=&#34;https://api.github.com/search/repositories?sort=stars&amp;amp;order=desc&amp;amp;q=created:%3E2016-10-01&amp;amp;per_page=25&#34;&gt;Here is a good
+URL&lt;/a&gt;
+for results that are a list of repos.&lt;/p&gt;
+
+&lt;h1 id=&#34;muy-largo&#34;&gt;Muy Largo&lt;/h1&gt;
+
+&lt;p&gt;This week I want you to write a class that makes an HTTP GET request to a JSON
+endpoint and parses the response to turn it into a Java object.&lt;/p&gt;
+
+&lt;p&gt;There are lots of ways you could go about doing this. I suggest using
+&lt;a href=&#34;https://square.github.io/retrofit/&#34;&gt;Retrofit&lt;/a&gt; and
+&lt;a href=&#34;https://github.com/ReactiveX/RxJava&#34;&gt;RxJava&lt;/a&gt;. A good tutorial on how to use
+these together can be found &lt;a href=&#34;http://randomdotnext.com/retrofit-rxjava/&#34;&gt;here&lt;/a&gt;.
+When I wrote my version of the app, I basically followed that.&lt;/p&gt;
+
+&lt;h2 id=&#34;aside-json-endpoints&#34;&gt;Aside: JSON Endpoints&lt;/h2&gt;
+
+&lt;p&gt;JSON is an extremely common data serialization format. This means it is easy to
+go from objects in code to something that can be written to disk (e.g. to save
+as a file or send over the network) and then back into code. I won&amp;rsquo;t give a
+whole tutorial here, but it basically lets you use &lt;code&gt;[ ]&lt;/code&gt; to create an array (or
+a list of items), and &lt;code&gt;{ }&lt;/code&gt; to define a map.&lt;/p&gt;
+
+&lt;p&gt;For example, go to
+&lt;a href=&#34;https://api.github.com/users/srsudar/repos&#34;&gt;api.github.com/users/srsudar/repos&lt;/a&gt;
+and look at the response. It is a blob of text. If you install a Chrome
+extension &lt;a href=&#34;https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en&#34;&gt;like this
+one&lt;/a&gt;
+you can view the response with formatting and color. It is nice. At the time of
+this writing, I see something like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;[
+  {
+    &amp;quot;id&amp;quot;: 18454181,
+    &amp;quot;name&amp;quot;: &amp;quot;android-primer&amp;quot;,
+    &amp;quot;full_name&amp;quot;: &amp;quot;srsudar/android-primer&amp;quot;,
+    [ ... snip long code ... ]
+  },
+  {
+    &amp;quot;id&amp;quot;: 22605955,
+    &amp;quot;name&amp;quot;: &amp;quot;android-should-know&amp;quot;,
+    &amp;quot;full_name&amp;quot;: &amp;quot;srsudar/android-should-know&amp;quot;
+    [ ... snip long code ... ]
+  },
+  [ ... snip more items ... ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This represents an array of repositories. We know it is an array because the
+response starts and ends with &lt;code&gt;[ ]&lt;/code&gt;. Each element in the array is an object
+(because it starts with &lt;code&gt;{ }&lt;/code&gt;) that has lots of properties. In this case I&amp;rsquo;m
+only showing &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;name&lt;/code&gt;, and &lt;code&gt;full_name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Many, many services expose JSON endpoints for you to consume and mess around
+with. You can see the whole Github API description
+&lt;a href=&#34;https://developer.github.com/v3/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-does-it-mean-to-fetch-json-on-android&#34;&gt;What Does it Mean to Fetch JSON on Android?&lt;/h2&gt;
+
+&lt;p&gt;There are several steps required to fetch JSON on Android:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Get a background thread: Because you can&amp;rsquo;t execute network requests on the
+main thread, you&amp;rsquo;ll need to do something to ensure you make the request on a
+background thread.&lt;/li&gt;
+&lt;li&gt;Issue the network request: Now you have to issue an HTTP GET request to your
+given endpoint.&lt;/li&gt;
+&lt;li&gt;Get the response as a String: HTTP requests respond with a message body. If
+you&amp;rsquo;re talking to a JSON endpoint, this is interpreted as a String.&lt;/li&gt;
+&lt;li&gt;Parse the response: Once you get the response body as a String, you need to
+parse that String into a JSON object. If you&amp;rsquo;re working with JavaScript,
+that is easy, as JSON is a first class citizen in JavaScript. However, since
+Java is a typed languaged, you need to go through an extra step of
+converting the response into Java obects. In our Github API demo above, this
+might mean a &lt;code&gt;Repo&lt;/code&gt; object with an &lt;code&gt;int&lt;/code&gt; field &lt;code&gt;id&lt;/code&gt;, a &lt;code&gt;String&lt;/code&gt; field
+&lt;code&gt;name&lt;/code&gt;, and a &lt;code&gt;String&lt;/code&gt; field &lt;code&gt;full_name&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;retrofit-and-rxjava&#34;&gt;Retrofit and RxJava&lt;/h2&gt;
+
+&lt;p&gt;In class I gave an example using Retrofit and RxJava. Retrofit takes care of
+steps 2, 3, and 4 for you. All you have to do is provide the &lt;code&gt;Repo&lt;/code&gt; object (or
+a similar object for a different JSON endpoint) and make the request.&lt;/p&gt;
+
+&lt;p&gt;You can use RxJava to handle step 1&amp;ndash;making a request on a background thread.&lt;/p&gt;
+
+&lt;p&gt;Using the two of them together you can handle the steps 1-4 and use JSON on
+Android. Neat.&lt;/p&gt;
+
+&lt;h2 id=&#34;goal-this-week&#34;&gt;Goal this Week&lt;/h2&gt;
+
+&lt;p&gt;The goal for this week is to write Android code that will talk to and parse the
+Github API like the one above. This will be a lot of following code tutorials.
+I recommend &lt;a href=&#34;http://randomdotnext.com/retrofit-rxjava/&#34;&gt;this one&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I would start by following that tutorial exactly and querying that API. Then,
+if you&amp;rsquo;re following along with the GithubHotness application I&amp;rsquo;m creating for
+the course, you&amp;rsquo;ll want to update it to use the &lt;code&gt;/search/repositories&lt;/code&gt; API to
+query by date created and sort by the number of stars.&lt;/p&gt;
+
+&lt;p&gt;A full search URL might look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://api.github.com/search/repositories?sort=stars&amp;amp;order=desc&amp;amp;q=created:%3E2016-10-01&amp;amp;per_page=25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that that we are adding &amp;lsquo;query parameters&amp;rsquo; to the URL. Query parameters
+are the things following the &lt;code&gt;?&lt;/code&gt; in the URL. They are key-value pairs. Each
+pair is separated by &lt;code&gt;&amp;amp;&lt;/code&gt;. So you could have something like
+&lt;code&gt;example.com?foo=fooVal&amp;amp;bar=barVal&lt;/code&gt;. Here we have two query parameters: &lt;code&gt;foo&lt;/code&gt;
+and &lt;code&gt;bar&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In that URL we have &lt;code&gt;sort&lt;/code&gt;, &lt;code&gt;order&lt;/code&gt;, &lt;code&gt;q&lt;/code&gt;, and &lt;code&gt;per_page&lt;/code&gt;. Documentation on the
+search API can be found &lt;a href=&#34;https://developer.github.com/v3/search/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To pass these query parameters to Retrofit, you&amp;rsquo;ll need to use the &lt;code&gt;@Query&lt;/code&gt;
+annotation. In my project I&amp;rsquo;ve wrapped them in something called
+&lt;code&gt;GithubService&lt;/code&gt;, which looks like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;String SEARCH = &amp;quot;/search/repositories&amp;quot;;
+
+@GET(SEARCH)
+Observable&amp;lt;SearchResponse&amp;gt; searchMostPopularRepos(
+    @Query(&amp;quot;sort&amp;quot;) String sort,
+    @Query(&amp;quot;order&amp;quot;) String order,
+    @Query(&amp;quot;q&amp;quot;) String query,
+    @Query(&amp;quot;per_page&amp;quot;) int perPage);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;rsquo;m returning a &lt;code&gt;SearchResponse&lt;/code&gt;, not a list of items. If you navigate to the
+&lt;a href=&#34;https://api.github.com/search/repositories?sort=stars&amp;amp;order=desc&amp;amp;q=created:%3E2016-10-01&amp;amp;per_page=25&#34;&gt;search url&lt;/a&gt;
+you&amp;rsquo;ll see something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;total_count&amp;quot;: 1661015,
+  &amp;quot;incomplete_results&amp;quot;: false,
+  &amp;quot;items&amp;quot;: []
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The endpoint isn&amp;rsquo;t just giving you a list of repositories, it&amp;rsquo;s actually giving
+you some metadata (the &lt;code&gt;total_count&lt;/code&gt; and &lt;code&gt;incomplete_results&lt;/code&gt; properties) and
+then the results themselves in the &lt;code&gt;items&lt;/code&gt; property. You need to help Retrofit
+know how to parse this. In my case, I care only about the repositories
+themselves, so I just have a &lt;code&gt;List&amp;lt;Repo&amp;gt;&lt;/code&gt; field with an annotation telling
+Retrofit that this is called &lt;code&gt;items&lt;/code&gt; in the response:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SearchResponse {
+  @SerializedName(&amp;quot;items&amp;quot;)
+  private ArrayList&amp;lt;Repo&amp;gt; repos;
+
+  public List&amp;lt;Repo&amp;gt; getRepos() {
+    return repos;
+  }
+
+  public void setRepos(ArrayList&amp;lt;Repo&amp;gt; repos) {
+    this.repos = repos;
+  }
+
+  @Override
+  public String toString() {
+    return &amp;quot;SearchResponse{&amp;quot; +
+        &amp;quot;repos=&amp;quot; + repos +
+        &#39;}&#39;;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Your assignment this week is to follow the tutorial, using the code samples
+like I&amp;rsquo;ve provided here, to parse a list of repositories from a search result.
+Ideally, you&amp;rsquo;d plug this into your &lt;code&gt;RecyclerView&lt;/code&gt; from last week, but that
+might be pushing it. For now, if you are just able to parse the results and log
+them, that will be a good step.&lt;/p&gt;
+
+&lt;p&gt;If you get stumped, ask me or take a look at how I did it in the &lt;a href=&#34;https://github.com/srsudar/GithubHotness&#34;&gt;GithubHotness
+repo&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 6</title>

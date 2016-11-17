@@ -6,8 +6,47 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Nov 2016 10:21:48 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 15 Nov 2016 09:30:54 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 7</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-7/</link>
+      <pubDate>Tue, 15 Nov 2016 09:30:54 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-7/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about processes, threads, and accessing the network.&lt;/p&gt;
+
+&lt;p&gt;Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/13SHBZTrgCXrZTOw9YkpkDQ5DGP_WvS6Fm1AtDekNjmk/edit?usp=sharing&#34;&gt;Lecture 7: Threading and
+Network&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://randomdotnext.com/retrofit-rxjava/&#34;&gt;Parsing JSON with Retrofit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://square.github.io/retrofit/&#34;&gt;Retrofit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.stablekernel.com/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/&#34;&gt;RxJava
+Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://randomdotnext.com/retrofit-rxjava/&#34;&gt;RxJava and REST&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.grokkingandroid.com/using-loaders-in-android/&#34;&gt;Tutorial on
+Loaders&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.androiddesignpatterns.com/2012/08/implementing-loaders.html&#34;&gt;Tutorial on implementing
+Loaders&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/volley/index.html&#34;&gt;Volley&lt;/a&gt;: A
+workhorse networking library commonly used in Android projects, though we
+didn&amp;rsquo;t discuss it in class. Unlike Retrofit, it is built for general
+requests rather than specifically for parsing JSON.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 6</title>
