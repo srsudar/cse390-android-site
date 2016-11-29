@@ -6,8 +6,205 @@
     <description>Recent content on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Nov 2016 18:04:43 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Nov 2016 13:30:52 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 9</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-9/</link>
+      <pubDate>Tue, 29 Nov 2016 13:30:52 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-9/</guid>
+      <description>
+
+&lt;h1 id=&#34;tl-dr&#34;&gt;tl;dr&lt;/h1&gt;
+
+&lt;p&gt;Implement a &lt;code&gt;PreferenceAccessor&lt;/code&gt; object to hide the complexities of dealing
+with &lt;code&gt;SharedPreferences&lt;/code&gt; every time you want to get a value. A single getter
+and a single test is sufficient. Send me a link to your repo.&lt;/p&gt;
+
+&lt;h1 id=&#34;long-with-lots-of-detail&#34;&gt;Long with Lots of Detail&lt;/h1&gt;
+
+&lt;p&gt;This week your task is to build something that saves data to disk. If you&amp;rsquo;re
+creating your own app, it can be whatever you need for your use-case. For
+people following along with the Github Hotness application, we&amp;rsquo;ll be making a
+&lt;code&gt;PreferenceAccessor&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.android.com/reference/android/content/SharedPreferences.html&#34;&gt;&lt;code&gt;SharedPreferences&lt;/code&gt;&lt;/a&gt;
+are used to store key-value pairs on Android. A potential problem with
+&lt;code&gt;SharedPreferences&lt;/code&gt; is that you need your keys to be constant strings. If you
+are accessing one of your key-values in various places around your app, you can
+wind up with similar code all over the place. This is a no-no. Instead, I like
+to bundle up this functionality in an object that I call an accessor.  This
+&lt;code&gt;PreferenceAccessor&lt;/code&gt; will be responsible for all the getting and setting of
+your key values.&lt;/p&gt;
+
+&lt;p&gt;This is complicated somewhat by the fact that many of the &lt;code&gt;SharedPreferences&lt;/code&gt;
+methods are &lt;code&gt;static&lt;/code&gt;. &lt;code&gt;static&lt;/code&gt; things are hard to test, since many mocking
+frameworks (including Mockito) cannot mock them out. This means it can be hard
+to inject behavior/state into tests if they rely on &lt;code&gt;static&lt;/code&gt; fields and
+methods.&lt;/p&gt;
+
+&lt;p&gt;Luckily for us, this can be easily overcome with a level of indirection. Full
+examples are in the
+&lt;a href=&#34;https://docs.google.com/presentation/d/1lNyuhuuRNBCjilPvZuGSQ_hQTjVrSpmKH5-ztzAckgQ/edit?usp=sharing&#34;&gt;slides&lt;/a&gt;,
+but I&amp;rsquo;m not including that here because it would be too easy to just copy and
+paste. Instead I am providing a similar example.&lt;/p&gt;
+
+&lt;p&gt;Imagine we have the following class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class VendingMachineQuerier {
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = MachineFactory.getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can use this class to get the number of candy bars in the vending machine
+made by &lt;code&gt;Mars&lt;/code&gt;, e.g.&lt;/p&gt;
+
+&lt;p&gt;But how can we test this? The standard way is to just pass in a
+&lt;code&gt;VendingMachine&lt;/code&gt; object, like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class VendingMachineQuerier {
+  public int getNumberCandyBars(String manufacturer, VendingMachine machine) {
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would certainly work, and in many cases it is the right answer. Imagine
+that for some reason you didn&amp;rsquo;t want to do that. In the case of
+&lt;code&gt;SharedPreferences&lt;/code&gt;, e.g., I find it can be tedious on the caller and is better
+centralized elsewhere.&lt;/p&gt;
+
+&lt;p&gt;We can instead create a package private method that returns a &lt;code&gt;VendingMachine&lt;/code&gt;.
+In the main code we&amp;rsquo;ll have the real implementation, and in the test code we
+will override that to provide a stub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class VendingMachineQuerier {
+  VendingMachine getVendingMachine() {
+    return MachineFactory.getVendingMachine();
+  }
+
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In our test package, we then subclass &lt;code&gt;VendingMachineQuerier&lt;/code&gt; and override this
+getter method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class TestVendingMachineQuerier {
+  VendingMachine vendingMachineMock;
+
+  public TestVendingMachineQuerier(VendingMachine machineMock) {
+    this.vendingMachineMock = machineMock;
+  }
+
+  VendingMachine getVendingMachine() {
+    return this.vendingMachineMock;
+  }
+
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we have a way to return a known object rather than the result of a static
+factory call. Our tests will then be on this test object rather than the
+original:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class VendingMachineQuerierTest {
+  VendingMachineQuerier querier;
+  @Mock
+  VendingMachine machineMock;
+
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
+    
+    // We&#39;ll now use our injectable subclass rather than the original:
+    querier = new TestVendingMachineQuerier(machineMock);
+  }
+
+  @Test
+  public void nameMeWell() {
+    // Here we will interact with querier and have machineMock to perform
+    // assertions.
+  }
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 9</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-9/</link>
+      <pubDate>Tue, 29 Nov 2016 13:25:48 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-9/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about persisting data. This is important if you want state
+saved across system and app restarts. Most apps will want to store something on
+disk, even if it&amp;rsquo;s not a main feature of the app.&lt;/p&gt;
+
+&lt;p&gt;Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/12Rjw6ZA27teKHc6ei59Op7Axr5x964jFtqZDGG-6R4Y/edit?usp=sharing&#34;&gt;Lecture 9: Persisting
+Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/data-storage/shared-preferences.html&#34;&gt;Saving Key-Value
+Sets&lt;/a&gt;:
+Android docs on saving key-values. Covers &lt;code&gt;SharedPreferences&lt;/code&gt; especially.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/data-storage/databases.html&#34;&gt;Saving Data in SQL
+Databases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://firebase.google.com/docs/database/&#34;&gt;Firebase Realtime Database&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Homework 8</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-8/</link>
+      <pubDate>Mon, 28 Nov 2016 13:29:37 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-8/</guid>
+      <description>&lt;p&gt;No homework this week! Enjoy the break. If you are dying to work on something,
+catch up on previous homework or work on your app.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 8</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-8/</link>
+      <pubDate>Sun, 27 Nov 2016 16:32:18 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-8/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about testing. Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1lNyuhuuRNBCjilPvZuGSQ_hQTjVrSpmKH5-ztzAckgQ/edit?usp=sharing&#34;&gt;Lecture 8:
+Testing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 7</title>
@@ -1007,101 +1204,6 @@ first have to build someone else&amp;rsquo;s existing code. It&amp;rsquo;s a goo
 familiar with it. If you&amp;rsquo;re choosing a project from github, check out the
 README for a &amp;ldquo;Building&amp;rdquo; section or something similar, as projects will
 frequently include pointers on vagaries of the build.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Week 2: The Lifecycle</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-2/</link>
-      <pubDate>Wed, 12 Oct 2016 08:23:37 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-2/</guid>
-      <description>
-
-&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
-
-&lt;p&gt;This week we talked about the Android lifecycle. Here is a link to the slides:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1bKBzo0rbi8NsmZc15VpX6DXrIJ4zPMX71EBpYIR2k2o/edit#slide=id.g183ccd2a56_0_5&#34;&gt;Lecture 2: Android Lifecycle&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I&amp;rsquo;ve created a repo called &lt;a href=&#34;https://github.com/srsudar/cse390-android-playground&#34;&gt;cse390-android-playground&lt;/a&gt;
-that I&amp;rsquo;ll keep updating over the course of the quarter to demonstrate small,
-bite-sized pieces of code outside of a coherent app context. As the README
-there indicates, it is organized by branches. This week check out
-&lt;code&gt;intent-basics&lt;/code&gt; and &lt;code&gt;lifecycle-logs&lt;/code&gt; and mess around with the code.&lt;/p&gt;
-
-&lt;p&gt;Here are some more links you might find useful. Some of the images on the
-slides came from these pages, and they provide a lot more detail:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://developer.android.com/guide/components/activities.html&#34;&gt;Activities&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/activity-lifecycle/index.html&#34;&gt;Activity Lifecycle
-Guide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/activity-lifecycle/starting.html&#34;&gt;Starting an
-Activity&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Office Hours Mondays 4-5</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/office-hours/</link>
-      <pubDate>Fri, 07 Oct 2016 12:42:18 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/office-hours/</guid>
-      <description>&lt;p&gt;Based on the Doodle poll, office hours will be &lt;strong&gt;Mondays, 4-5&lt;/strong&gt;. All the rooms
-are booked, so for now we&amp;rsquo;ll just meet in &lt;strong&gt;CSE 214&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that the office hours were formerly in the third floor breakout, but the
-location has moved.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Room Change: GUG 218</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/room-change/</link>
-      <pubDate>Thu, 06 Oct 2016 08:27:31 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/room-change/</guid>
-      <description>&lt;p&gt;To try and better accommodate overloads, we have moved rooms to &lt;a href=&#34;https://www.washington.edu/maps/#!/gug&#34;&gt;Guggenheim
-218&lt;/a&gt;. It has windows and lacks a giant
-pillar in the middle of the room, so that is a win.&lt;/p&gt;
-
-&lt;p&gt;My inbox has been relatively quiet, given how finicky Android Studio can be. If
-you get stuck, let me know.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Homework 1</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</link>
-      <pubDate>Tue, 04 Oct 2016 17:31:19 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-1/</guid>
-      <description>&lt;p&gt;Your homework for this week is to get your dev environment set up. Once it is
-running, create a new app like I demonstrated in the slides (Lecture 1, see
-previous post) and run it on either your device or an emulator.&lt;/p&gt;
-
-&lt;p&gt;After that, download and open this project in Android Studio:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/srsudar/mdr-original&#34;&gt;https://github.com/srsudar/mdr-original&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Run the tests and run the app on your device or emulator.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;If you get stuck email me and I will help you!!!&lt;/strong&gt; There is nothing worse
-than being stuck on something like configuration or not being able to run code
-that other people can run. If any of this is confusing (i.e. how do I download
-and open a project?), email me and I will explain it better!&lt;/p&gt;
-
-&lt;p&gt;Right away with the &lt;code&gt;mdr-original&lt;/code&gt; project someone got an error saying that
-android-22 was not found on their machine. This means the SDK for Android
-version 22 is not installed, and many of you will likely see the same error.
-This is not an error with the app but with your build environment, and is one
-of the most common types of Android errors. Launch the SDK manager (as shown in
-the slides), and install version 22. It should then work (or at least that
-error should go away).&lt;/p&gt;
 </description>
     </item>
     

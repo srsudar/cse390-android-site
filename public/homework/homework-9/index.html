@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework 9 | CSE 390 A1: Android Programming</title>
+<link rel="stylesheet" href="https://courses.cs.washington.edu/courses/cse390a1/16au//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://courses.cs.washington.edu/courses/cse390a1/16au/"><h1 class="title is-4">CSE 390 A1: Android Programming</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 29, 2016</h2>
+    <h1 class="title">Homework 9</h1>
+    <div class="content">
+      
+
+<h1 id="tl-dr">tl;dr</h1>
+
+<p>Implement a <code>PreferenceAccessor</code> object to hide the complexities of dealing
+with <code>SharedPreferences</code> every time you want to get a value. A single getter
+and a single test is sufficient. Send me a link to your repo.</p>
+
+<h1 id="long-with-lots-of-detail">Long with Lots of Detail</h1>
+
+<p>This week your task is to build something that saves data to disk. If you&rsquo;re
+creating your own app, it can be whatever you need for your use-case. For
+people following along with the Github Hotness application, we&rsquo;ll be making a
+<code>PreferenceAccessor</code>.</p>
+
+<p><a href="https://developer.android.com/reference/android/content/SharedPreferences.html"><code>SharedPreferences</code></a>
+are used to store key-value pairs on Android. A potential problem with
+<code>SharedPreferences</code> is that you need your keys to be constant strings. If you
+are accessing one of your key-values in various places around your app, you can
+wind up with similar code all over the place. This is a no-no. Instead, I like
+to bundle up this functionality in an object that I call an accessor.  This
+<code>PreferenceAccessor</code> will be responsible for all the getting and setting of
+your key values.</p>
+
+<p>This is complicated somewhat by the fact that many of the <code>SharedPreferences</code>
+methods are <code>static</code>. <code>static</code> things are hard to test, since many mocking
+frameworks (including Mockito) cannot mock them out. This means it can be hard
+to inject behavior/state into tests if they rely on <code>static</code> fields and
+methods.</p>
+
+<p>Luckily for us, this can be easily overcome with a level of indirection. Full
+examples are in the
+<a href="https://docs.google.com/presentation/d/1lNyuhuuRNBCjilPvZuGSQ_hQTjVrSpmKH5-ztzAckgQ/edit?usp=sharing">slides</a>,
+but I&rsquo;m not including that here because it would be too easy to just copy and
+paste. Instead I am providing a similar example.</p>
+
+<p>Imagine we have the following class:</p>
+
+<pre><code class="language-java">public class VendingMachineQuerier {
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = MachineFactory.getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+</code></pre>
+
+<p>We can use this class to get the number of candy bars in the vending machine
+made by <code>Mars</code>, e.g.</p>
+
+<p>But how can we test this? The standard way is to just pass in a
+<code>VendingMachine</code> object, like:</p>
+
+<pre><code class="language-java">public class VendingMachineQuerier {
+  public int getNumberCandyBars(String manufacturer, VendingMachine machine) {
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+</code></pre>
+
+<p>This would certainly work, and in many cases it is the right answer. Imagine
+that for some reason you didn&rsquo;t want to do that. In the case of
+<code>SharedPreferences</code>, e.g., I find it can be tedious on the caller and is better
+centralized elsewhere.</p>
+
+<p>We can instead create a package private method that returns a <code>VendingMachine</code>.
+In the main code we&rsquo;ll have the real implementation, and in the test code we
+will override that to provide a stub:</p>
+
+<pre><code class="language-java">public class VendingMachineQuerier {
+  VendingMachine getVendingMachine() {
+    return MachineFactory.getVendingMachine();
+  }
+
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+</code></pre>
+
+<p>In our test package, we then subclass <code>VendingMachineQuerier</code> and override this
+getter method:</p>
+
+<pre><code class="language-java">public class TestVendingMachineQuerier {
+  VendingMachine vendingMachineMock;
+
+  public TestVendingMachineQuerier(VendingMachine machineMock) {
+    this.vendingMachineMock = machineMock;
+  }
+
+  VendingMachine getVendingMachine() {
+    return this.vendingMachineMock;
+  }
+
+  public int getNumberCandyBars(String manufacturer) {
+    VendingMachine machine = getVendingMachine();
+    return machine.getNumberForManufacture(manufacturer);
+  }
+}
+</code></pre>
+
+<p>Now we have a way to return a known object rather than the result of a static
+factory call. Our tests will then be on this test object rather than the
+original:</p>
+
+<pre><code class="language-java">public class VendingMachineQuerierTest {
+  VendingMachineQuerier querier;
+  @Mock
+  VendingMachine machineMock;
+
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
+    
+    // We'll now use our injectable subclass rather than the original:
+    querier = new TestVendingMachineQuerier(machineMock);
+  }
+
+  @Test
+  public void nameMeWell() {
+    // Here we will interact with querier and have machineMock to perform
+    // assertions.
+  }
+</code></pre>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-49752535-3","auto"),ga("send","pageview");
+</script>
+
+

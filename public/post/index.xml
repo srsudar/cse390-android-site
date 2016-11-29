@@ -6,8 +6,61 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Nov 2016 09:30:54 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 29 Nov 2016 13:25:48 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 9</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-9/</link>
+      <pubDate>Tue, 29 Nov 2016 13:25:48 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-9/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about persisting data. This is important if you want state
+saved across system and app restarts. Most apps will want to store something on
+disk, even if it&amp;rsquo;s not a main feature of the app.&lt;/p&gt;
+
+&lt;p&gt;Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/12Rjw6ZA27teKHc6ei59Op7Axr5x964jFtqZDGG-6R4Y/edit?usp=sharing&#34;&gt;Lecture 9: Persisting
+Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/data-storage/shared-preferences.html&#34;&gt;Saving Key-Value
+Sets&lt;/a&gt;:
+Android docs on saving key-values. Covers &lt;code&gt;SharedPreferences&lt;/code&gt; especially.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/training/basics/data-storage/databases.html&#34;&gt;Saving Data in SQL
+Databases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://firebase.google.com/docs/database/&#34;&gt;Firebase Realtime Database&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 8</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-8/</link>
+      <pubDate>Sun, 27 Nov 2016 16:32:18 -0700</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-8/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;This week we talked about testing. Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1lNyuhuuRNBCjilPvZuGSQ_hQTjVrSpmKH5-ztzAckgQ/edit?usp=sharing&#34;&gt;Lecture 8:
+Testing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 7</title>
