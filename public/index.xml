@@ -6,8 +6,55 @@
     <description>Recent content on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Nov 2016 13:30:52 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 06 Dec 2016 09:59:06 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 10</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-10/</link>
+      <pubDate>Tue, 06 Dec 2016 09:59:06 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;final-project-submission&#34;&gt;Final Project Submission&lt;/h1&gt;
+
+&lt;p&gt;For the final project you had the option of either following along with me,
+making a &amp;lsquo;Github Hotness&amp;rsquo; app, or of building an app of your own design. For
+your final homework, &lt;strong&gt;send me a link to your repo for the project&lt;/strong&gt; with a
+description of the app.&lt;/p&gt;
+
+&lt;p&gt;Also, &lt;strong&gt;PLEASE&lt;/strong&gt; complete the course evaluation. See my email for more
+information.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Week 10</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-10/</link>
+      <pubDate>Mon, 05 Dec 2016 13:44:53 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;In our last lecture we talked about the glory of &lt;code&gt;WebView&lt;/code&gt;, accessing hardware,
+and &lt;code&gt;Service&lt;/code&gt;s.&lt;/p&gt;
+
+&lt;p&gt;Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1cN8LrEVbjXWIMRDMPDkeaMo3tMS1IgWrcxknmKD-C8I/edit?usp=sharing&#34;&gt;Lecture 10: Hardware, Services, Odds and
+Ends&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;p&gt;*
+&lt;a href=&#34;https://developer.android.com/reference/android/webkit/WebView.html&#34;&gt;&lt;code&gt;WebView&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 9</title>
@@ -1149,61 +1196,6 @@ try to help you understand them. These are things that you&amp;rsquo;ll be bette
 knowing, and I am consciously trying to encourage that you become comfortable
 with them. If you &lt;strong&gt;really&lt;/strong&gt; don&amp;rsquo;t want to use github, you can email me a patch
 file with the same subject as above.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Week 3</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</link>
-      <pubDate>Tue, 18 Oct 2016 16:03:20 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-3/</guid>
-      <description>
-
-&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
-
-&lt;p&gt;This week we talked about Building a UI. Slides:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1Bz13hejFW1ylJgI_bnvmof7oaOcTVWFn6pLQgyLIeL0/edit?usp=sharing&#34;&gt;Lecture 3: Building a
-UI&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A lot of people were gone for the career fair. Email me or come to office hours
-if anything is confusing.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Homework 2</title>
-      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-2/</link>
-      <pubDate>Wed, 12 Oct 2016 08:34:52 -0700</pubDate>
-      
-      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-2/</guid>
-      <description>&lt;p&gt;Homework 2 is to choose an open source Android project and build it locally.
-I&amp;rsquo;ve &lt;a href=&#34;https://catalyst.uw.edu/gopost/board/sudars/43331/&#34;&gt;started a discussion
-board&lt;/a&gt; for the course and
-&lt;a href=&#34;https://catalyst.uw.edu/gopost/conversation/sudars/973883&#34;&gt;started a thread&lt;/a&gt;
-where I&amp;rsquo;d like people to post the projects that they choose.&lt;/p&gt;
-
-&lt;p&gt;Homework 2 (assigned on 2016-10-11) is to find an open source Android Project,
-build it locally, and run it on your device/emulator. Some will be easier than
-others. Some may be really hard. &lt;strong&gt;When you&amp;rsquo;ve chosen and built a project, post
-it on the &lt;a href=&#34;https://catalyst.uw.edu/gopost/conversation/sudars/973883&#34;&gt;Homework 2
-thread&lt;/a&gt; on the
-message board.&lt;/strong&gt; I&amp;rsquo;m curious to see what you choose.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Only choose a project someone else has posted if you have already tried a
-different project but haven&amp;rsquo;t been able to get it working.&lt;/strong&gt; If you&amp;rsquo;re
-re-posting a project, include the previous project that you tried and the error
-that kept you from building it. I basically just don&amp;rsquo;t want the first person
-that posts a simple-to-build project to ruin the experience for someone else.&lt;/p&gt;
-
-&lt;p&gt;In the real world if you&amp;rsquo;re working on an Android project, odds are you&amp;rsquo;ll
-first have to build someone else&amp;rsquo;s existing code. It&amp;rsquo;s a good idea to get
-familiar with it. If you&amp;rsquo;re choosing a project from github, check out the
-README for a &amp;ldquo;Building&amp;rdquo; section or something similar, as projects will
-frequently include pointers on vagaries of the build.&lt;/p&gt;
 </description>
     </item>
     

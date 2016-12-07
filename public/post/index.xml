@@ -6,8 +6,35 @@
     <description>Recent content in Posts on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Nov 2016 13:25:48 -0800</lastBuildDate>
+    <lastBuildDate>Mon, 05 Dec 2016 13:44:53 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Week 10</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-10/</link>
+      <pubDate>Mon, 05 Dec 2016 13:44:53 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;recap-and-slides&#34;&gt;Recap and Slides&lt;/h1&gt;
+
+&lt;p&gt;In our last lecture we talked about the glory of &lt;code&gt;WebView&lt;/code&gt;, accessing hardware,
+and &lt;code&gt;Service&lt;/code&gt;s.&lt;/p&gt;
+
+&lt;p&gt;Here are the slides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1cN8LrEVbjXWIMRDMPDkeaMo3tMS1IgWrcxknmKD-C8I/edit?usp=sharing&#34;&gt;Lecture 10: Hardware, Services, Odds and
+Ends&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;links&#34;&gt;Links&lt;/h1&gt;
+
+&lt;p&gt;*
+&lt;a href=&#34;https://developer.android.com/reference/android/webkit/WebView.html&#34;&gt;&lt;code&gt;WebView&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Week 9</title>

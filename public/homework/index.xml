@@ -6,8 +6,28 @@
     <description>Recent content in Homeworks on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Nov 2016 13:30:52 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 06 Dec 2016 09:59:06 -0800</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/homework/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Homework 10</title>
+      <link>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-10/</link>
+      <pubDate>Tue, 06 Dec 2016 09:59:06 -0800</pubDate>
+      
+      <guid>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;final-project-submission&#34;&gt;Final Project Submission&lt;/h1&gt;
+
+&lt;p&gt;For the final project you had the option of either following along with me,
+making a &amp;lsquo;Github Hotness&amp;rsquo; app, or of building an app of your own design. For
+your final homework, &lt;strong&gt;send me a link to your repo for the project&lt;/strong&gt; with a
+description of the app.&lt;/p&gt;
+
+&lt;p&gt;Also, &lt;strong&gt;PLEASE&lt;/strong&gt; complete the course evaluation. See my email for more
+information.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Homework 9</title>
