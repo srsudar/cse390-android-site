@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Slides on CSE 390 A1: Android Programming</title>
-    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/tags/slides/</link>
+    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/tags/slides/index.xml</link>
     <description>Recent content in Slides on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Oct 2016 16:54:01 -0700</lastBuildDate>
     <atom:link href="https://courses.cs.washington.edu/courses/cse390a1/16au/tags/slides/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

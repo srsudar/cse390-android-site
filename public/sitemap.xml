@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/</loc>
-    <lastmod>2016-12-06T09:59:06-08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/homework-10/</loc>
     <lastmod>2016-12-06T09:59:06-08:00</lastmod>
   </url>
@@ -114,6 +109,41 @@
   <url>
     <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/post/week-1-intro/</loc>
     <lastmod>2016-10-04T16:54:01-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/</loc>
+    <lastmod>2016-12-06T09:59:06-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/tags/homework/</loc>
+    <lastmod>2016-10-04T17:31:19-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/homework/</loc>
+    <lastmod>2016-12-06T09:59:06-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/post/</loc>
+    <lastmod>2016-12-05T13:44:53-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/tags/slides/</loc>
+    <lastmod>2016-10-04T16:54:01-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://courses.cs.washington.edu/courses/cse390a1/16au/tags/</loc>
+    <priority>0</priority>
   </url>
   
 </urlset>

@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CSE 390 A1: Android Programming</title>
-    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/</link>
+    <link>https://courses.cs.washington.edu/courses/cse390a1/16au/index.xml</link>
     <description>Recent content on CSE 390 A1: Android Programming</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
